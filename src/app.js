@@ -37,6 +37,7 @@ const muiTheme = getMuiTheme({
 
 import SearchBar from './components/searchBar';
 import TopBar from './components/topBar';
+import FetchPopular from './components/fetchPopular';
 
 class App extends Component {
   state = {
@@ -48,6 +49,7 @@ class App extends Component {
         <div>
           <TopBar isLoggedIn={this.state.isLoggedIn} />
           <SearchBar />
+          <FetchPopular />
         </div>
       </MuiThemeProvider>
     );
