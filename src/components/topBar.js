@@ -93,7 +93,7 @@ class TopBar extends Component {
           open={this.state.signinForm}
           autoScrollBodyContent={true}
         >
-          <SigninForm submitSigninFor={this.submitSigninForm} />
+          <SigninForm submitSigninForm={this.submitSigninForm} />
         </Dialog>
         
       </div>

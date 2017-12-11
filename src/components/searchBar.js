@@ -16,7 +16,7 @@ class SearchBar extends Component {
           dataSource={this.state.dataSource}
           maxSearchResults={3}
           fullWidth={true}
-          style={{backgroundColor: "#303030"}}
+          style={{ backgroundColor: "#303030" }}
         />
       </div>
     );
