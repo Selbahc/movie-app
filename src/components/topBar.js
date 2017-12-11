@@ -6,11 +6,14 @@ import VideoLibrary from 'material-ui/svg-icons/av/video-library';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
+import Snackbar from 'material-ui/Snackbar';
 import { getStyles } from 'material-ui/AppBar/AppBar';
+
 import PropTypes from 'prop-types';
 
 import LoginForm from './loginForm';
 import SigninForm from './signinForm';
+import { log } from 'core-js/library/web/timers';
 
 class TopBar extends Component {
   static get contextTypes() {
@@ -19,7 +22,20 @@ class TopBar extends Component {
 
   state = {
     loginForm: false,
-    signinForm: false
+    signinForm: false,
+    snackbar: {
+      open: false,
+      message: ''
+    }
+  }
+
+  handleSnackbarClosing = () => {
+    this.setState({
+      snackbar: {
+        open: false,
+        message: ''
+      }
+    })
   }
 
   toggleForms = (form) => {
@@ -31,8 +47,39 @@ class TopBar extends Component {
   submitLoginForm = (formData) => {
     console.log(formData);
   }
+  
+
   submitSigninForm = (formData) => {
-    console.log(formData);    
+    if (formData.password !== formData.confirmPassword) {
+      return this.setState({
+        snackbar: {
+          open: true,
+          message: 'No matching passwords !'
+        }
+      });
+    }
+
+    const form = new FormData();
+    form.append("firstName", formData.firstName);
+    form.append("lastName", formData.lastName);
+    form.append("email", formData.email);
+    form.append("password", formData.password);
+    form.append("continent", formData.continent);
+
+    fetch('http://localhost:8181/register', {
+      method: 'POST',
+      body: form,
+    })
+      .then(result => result.json())
+      .then(response => { 
+        this.setState({
+          snackbar: {
+            open: true,
+            message: response.message
+          }
+        });
+        this.toggleForms('signinForm');
+      })
   }
   
   render() {
@@ -95,6 +142,12 @@ class TopBar extends Component {
         >
           <SigninForm submitSigninForm={this.submitSigninForm} />
         </Dialog>
+
+        <Snackbar
+          open={this.state.snackbar.open}
+          message={this.state.snackbar.message}
+          onRequestClose={this.handleSnackbarClosing}
+        />
         
       </div>
     )

@@ -8,11 +8,12 @@ class SigninForm extends Component {
   state = {}
 
   handleSubmit = (e) => {
-    e.preventDefault;
+    e.preventDefault();
     this.props.submitSigninForm(this.state);
+    // this.setState({});
   }
 
-  handleInput = (e, selectValue) => {
+  handleInput = (e) => {
     if (e.target.innerText) return this.setState({
       continent: e.target.innerText
     });

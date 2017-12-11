@@ -6,7 +6,7 @@
   "author": "Selbahc",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --open --content-base dist/ --inline",
+    "start": "webpack-dev-server --open --content-base dist/ --inline --hot",
     "build": "webpack"
   },
   "devDependencies": {
