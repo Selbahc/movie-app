@@ -49,7 +49,7 @@ class TopBar extends Component {
     form.append("email", formData.email);
     form.append("password", formData.password);
 
-    fetch('http://localhost:8181/login', {
+    fetch('/api/login', {
       method: 'POST',
       body: form,
     })
@@ -84,7 +84,7 @@ class TopBar extends Component {
     form.append("password", formData.password);
     form.append("continent", formData.continent);
 
-    fetch('http://localhost:8181/register', {
+    fetch('api/register', {
       method: 'POST',
       body: form,
     })

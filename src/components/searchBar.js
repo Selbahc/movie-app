@@ -10,7 +10,7 @@ class SearchBar extends Component {
     return (
       <div>
         <AutoComplete
-          hintText="by title"
+          hintText="By title"
           floatingLabelText="Search a movie"
           filter={AutoComplete.fuzzyFilter}
           dataSource={this.state.dataSource}

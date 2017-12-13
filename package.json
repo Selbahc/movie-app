@@ -6,7 +6,7 @@
   "author": "Selbahc",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --open --content-base dist/ --inline --hot",
+    "start": "webpack-dev-server --open --content-base dist/ --inline --hot --progress --colors",
     "build": "webpack"
   },
   "devDependencies": {

@@ -1,3 +1,4 @@
+import app from '../index';
 const bcrypt = require('bcrypt');
 const express = require('express');
 const User = require('../models/user');
@@ -24,7 +25,7 @@ api.post('/login',
             id: user._id
           };
 
-          const token = jwt.sign(payload, 'GUESSMEifYouCan', { expiresIn: '24h' });
+          const token = jwt.sign(payload, app.get('app-secret'), { expiresIn: '24h' });
 
           res.json({
             success: true,
