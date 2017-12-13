@@ -45,7 +45,25 @@ class TopBar extends Component {
   }
 
   submitLoginForm = (formData) => {
-    console.log(formData);
+    const form = new FormData();
+    form.append("email", formData.email);
+    form.append("password", formData.password);
+
+    fetch('http://localhost:8181/login', {
+      method: 'POST',
+      body: form,
+    })
+      .then(result => result.json())
+      .then(response => {
+        this.setState({
+          snackbar: {
+            open: true,
+            message: response.message
+          }
+        });
+        this.toggleForms('loginForm');
+      })
+      .catch(err => console.log(err))
   }
   
 
