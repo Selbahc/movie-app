@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
   email: { type: String, unique: true },
@@ -8,4 +8,4 @@ const UserSchema = new mongoose.Schema({
   continent: { type: String, required: true },
 });
 
-module.exports = mongoose.model('User', UserSchema);
+export default mongoose.model('User', UserSchema);

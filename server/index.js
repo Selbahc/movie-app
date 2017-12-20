@@ -1,8 +1,7 @@
 import express from 'express';
 import { serverConfig, databaseConfig, tokenConfig } from './config';
 import mongoose from 'mongoose';
-import registerRoute from './routes/register';
-import loginRoute from './routes/login'
+import * as userRoutes from './routes/user';
 import cors from 'cors';
 import logger from 'morgan';
 
@@ -14,12 +13,16 @@ app.set('app-secret', tokenConfig.secret)
 
 app.use(logger('dev'));
 app.use(cors());
-app.use('/api', registerRoute);
-app.use('/api', loginRoute);
+app.use(
+  '/api', 
+  userRoutes.login,
+  userRoutes.register
+);
 
 
 app.listen(
   serverConfig.port,
   () => console.log(`Server listening on port ${serverConfig.port}`)
 );
+
 export default app;
