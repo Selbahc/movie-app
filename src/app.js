@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
@@ -38,6 +39,9 @@ const muiTheme = getMuiTheme({
 import SearchBar from './components/searchBar';
 import TopBar from './components/topBar';
 import FetchPopular from './components/fetchPopular';
+import FetchFavorite from './components/fetchFavorites';
+import NotFound from './components/notFound';
+import TabsBar from './components/tabsBar';
 
 class App extends Component {
   state = {
@@ -46,11 +50,19 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <div>
-          <TopBar isLoggedIn={this.state.isLoggedIn} />
-          <SearchBar />
-          <FetchPopular />
-        </div>
+        <BrowserRouter>
+          <div>
+            <TopBar isLoggedIn={this.state.isLoggedIn} />
+            <TabsBar isLoggedIn={this.state.isLoggedIn} />
+            <SearchBar />
+            <Switch>
+              <Route exact path="/" render={() => <Redirect to="/popular" />} />
+              <Route path="/popular" component={FetchPopular} />
+              <Route path="/favorites" component={FetchFavorite} />
+              <Route path="*" component={NotFound} />
+            </Switch>
+          </div>
+        </BrowserRouter>          
       </MuiThemeProvider>
     );
   }

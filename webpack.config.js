@@ -19,6 +19,7 @@ module.exports = {
     ]
   },
   devServer: {
+    historyApiFallback: true, //react router doesn't work without this line
     proxy: {
       '/api': {
         target: 'http://localhost:8181',
