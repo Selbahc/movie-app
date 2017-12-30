@@ -18,7 +18,7 @@ class FetchPopular extends Component {
     return (
       <div>
         {this.state.popularList &&
-          <MovieDisplay popular={this.state.popularList} />
+          <MovieDisplay movies={this.state.popularList} />
         }
       </div>
     );

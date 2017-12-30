@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import MovieDisplay from './movieDisplay';
 
 class FetchFavorites extends Component {
-  state = {  }
+  state = { favorites: null }
+
+
   render() {
     return (
-      <div>
- FAVORITES
-      </div>
+      <MovieDisplay movies={this.state.favorites} />
     );
   }
 }

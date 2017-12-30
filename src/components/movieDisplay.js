@@ -4,14 +4,14 @@ import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 
-const MovieDisplay = ({ popular }) => (
+const MovieDisplay = ({ movies }) => (
   <div>
     <GridList
       cellHeight="auto"
       cols={6}
     >
       <Subheader>Popular</Subheader>
-      {popular.map((tile) => (
+      {movies.map((tile) => (
         <GridTile
           key={tile.id}
           title={tile.title}
