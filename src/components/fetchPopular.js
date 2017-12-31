@@ -13,7 +13,7 @@ class FetchPopular extends Component {
       .then(response => response.json())
       .then(data => this.setState({ popularList: data.results }, () => console.log(this.state.popularList)));
   }
-
+  
   render() {
     return (
       <div>

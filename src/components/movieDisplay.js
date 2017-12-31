@@ -3,6 +3,11 @@ import { GridList, GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+import Favorite from 'material-ui/svg-icons/action/favorite';
+import Visibility from 'material-ui/svg-icons/action/visibility';
+import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
+
 
 const MovieDisplay = ({ movies }) => (
   <div>
@@ -16,7 +21,7 @@ const MovieDisplay = ({ movies }) => (
           key={tile.id}
           title={tile.title}
           subtitle={<span>Vote <b>{tile.vote_average}</b></span>}
-          actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
+          actionIcon={<IconButton><FavoriteBorder color="white" /><VisibilityOff color="white" /></IconButton>}
           titleBackground="rgba(0, 0, 0, 0.8)"
         >
           <img src={`https://image.tmdb.org/t/p/w300/${tile.poster_path}`} />

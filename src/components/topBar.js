@@ -61,6 +61,10 @@ class TopBar extends Component {
             message: response.message
           }
         });
+        this.props.setLoginStatus(response.success);
+        response.token
+          ? sessionStorage.setItem('token', response.token)
+          : sessionStorage.removeItem('token');
         this.toggleForms('loginForm');
       })
       .catch(err => console.log(err))

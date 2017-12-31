@@ -45,14 +45,19 @@ import TabsBar from './components/tabsBar';
 
 class App extends Component {
   state = {
-    isLoggedIn: false
+    isLoggedIn: sessionStorage.getItem('token') ? true : false,
   }
+
+  setLoginStatus = (status) => {
+    this.setState({ isLoggedIn: status });
+  }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <BrowserRouter>
           <div>
-            <TopBar isLoggedIn={this.state.isLoggedIn} />
+            <TopBar setLoginStatus={this.setLoginStatus} isLoggedIn={this.state.isLoggedIn} />
             <TabsBar isLoggedIn={this.state.isLoggedIn} />
             <SearchBar />
             <Switch>
