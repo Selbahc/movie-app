@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import * as userRoutes from './routes/user';
 import cors from 'cors';
 import logger from 'morgan';
+import favorites from './routes/movie/favorites';
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(
   userRoutes.login,
   userRoutes.register
 );
+app.use('/api', favorites)
 
 
 app.listen(

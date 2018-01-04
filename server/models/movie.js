@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const MovieSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+  uid: { type: String, required: true},
   favoritesCount: { type: Number, min: 0 },
   watchListCount: { type: Number, min: 0 },
   seenCount: { type: Number, min: 0 },

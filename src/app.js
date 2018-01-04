@@ -63,7 +63,10 @@ class App extends Component {
             <Switch>
               <Route exact path="/" render={() => <Redirect to="/popular" />} />
               <Route path="/popular" component={FetchPopular} />
-              <Route path="/favorites" component={FetchFavorite} />
+              {this.state.isLoggedIn &&
+                // <Route path="/favorites" render={() => this.state.isLoggedIn ? FetchFavorite : <Redirect to={"/"} />} />
+                <Route path="/favorites" component={FetchFavorite} />
+              }
               <Route path="*" component={NotFound} />
             </Switch>
           </div>
