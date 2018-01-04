@@ -103,6 +103,11 @@ class TopBar extends Component {
         this.toggleForms('signinForm');
       })
   }
+
+  logOut = () => {
+    sessionStorage.removeItem('token');
+    this.props.setLoginStatus(false);
+  }
   
   render() {
     const styles = getStyles(this.props, this.context);
@@ -134,6 +139,13 @@ class TopBar extends Component {
         form="signinForm"
       />,
     ];
+
+    const isLoggedOut = <div>
+      <FlatButton style={styles.flatButton} onClick={() => this.toggleForms('loginForm')} label="Log In" />
+      <FlatButton style={styles.flatButton} onClick={() => this.toggleForms('signinForm')} label="Sign In" />
+    </div>;
+    const isLoggedIn = <FlatButton style={styles.flatButton} onClick={() => this.logOut()} label="Log Out" />;
+
     return (
       <div>
         <AppBar
@@ -141,8 +153,7 @@ class TopBar extends Component {
           iconElementLeft={<IconButton><VideoLibrary /></IconButton>}
           // iconElementRight={<FlatButton onClick={()=>this.toggleForms('loginForm')} label="Login" />}
         >
-          <FlatButton style={styles.flatButton} onClick={() => this.toggleForms('loginForm')} label="Login" />
-          <FlatButton style={styles.flatButton} onClick={() => this.toggleForms('signinForm')} label="Sign In" />
+          {!this.props.isLoggedIn ? isLoggedOut : isLoggedIn}
         </AppBar>
         
         <Dialog
