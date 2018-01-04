@@ -14,9 +14,8 @@ const addToFavorite = (movieId) => {
   fetch(`api/favorites/add/${movieId}`, {
     method: 'POST',
     headers: authHeader
-  })
-    .then(res => res.json())
-    .then(data => console.log(data))
+  });
+  // TODO: ADD SNACKBAR MESSAGE TO CONFIRM
 }
 
 const MovieDisplay = ({ movies }) => (

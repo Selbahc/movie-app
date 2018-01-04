@@ -10,10 +10,9 @@ const router = express.Router();
 
 
 router.get('/favorites', checkAuthentication, (req, res) => {
-  User.findById(req.userId, (err, user) => {
-    if (err) return res.json({ success: false, message: 'User not found', err });
-    res.json({ success: true, favorites: user.favorites });
-  });
+  User.findById(req.userId)
+    .populate('favorites')
+    .exec((err, user) => err ? res.json({ success: false, favorites: null}) : res.json({ success: true, favorites: user.favorites }));
 });
 
 router.post('/favorites/add/:id', checkAuthentication, addMovieIfNotInDb, (req, res) => {
