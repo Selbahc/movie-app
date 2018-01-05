@@ -8,12 +8,12 @@ import Favorite from 'material-ui/svg-icons/action/favorite';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 
+import headers from '../utils/tokenHeaders';
+
 const addToFavorite = (movieId) => {
-  const authHeader = new Headers();
-  authHeader.set('token', sessionStorage.getItem('token'));
   fetch(`api/favorites/add/${movieId}`, {
     method: 'POST',
-    headers: authHeader
+    headers
   });
   // TODO: ADD SNACKBAR MESSAGE TO CONFIRM
 }

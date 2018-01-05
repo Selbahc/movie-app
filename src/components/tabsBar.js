@@ -1,19 +1,26 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { Tabs, Tab } from 'material-ui/Tabs';
+import React, { Component } from "react";
+import { Tabs, Tab } from 'material-ui';
+import { withRouter } from "react-router-dom";
 
-const redirect = (tab, history) => { history.push(`${tab.props['data-route']}`) }
+class TabsBar extends Component {
 
-const TabsBar = withRouter(({ history, isLoggedIn }) => (
-  <Tabs>
-    <Tab label="Popular" data-route="/popular" onActive={ (tab) => redirect(tab, history) } />
-    {isLoggedIn &&     
-      <Tab label="Favorites" data-route="/favorites" onActive={ (tab) => redirect(tab, history) } />
-    }
-    {isLoggedIn &&
-      <Tab label="Watch List" data-route="/watch-list" onActive={ (tab) => redirect(tab, history) } />
-    }
-  </Tabs>
-));
+  handleCallToRouter = (value) => {
+    this.props.history.push(value);
+  }
 
-export default TabsBar;
+  render() {
+    return (
+      <Tabs value={this.props.history.location.pathname} onChange={this.handleCallToRouter}>
+        <Tab label="Popular" value="/popular" />
+        {this.props.isLoggedIn &&
+          <Tab label="Favorites" value="/favorites" />
+        }
+        {this.props.isLoggedIn &&
+          <Tab label="Watch List" value="/watchlist" />        
+        }
+      </Tabs>
+    )
+  }
+}
+
+export default withRouter(TabsBar);
