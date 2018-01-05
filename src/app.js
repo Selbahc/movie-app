@@ -43,9 +43,34 @@ import FetchFavorite from './components/fetchFavorites';
 import NotFound from './components/notFound';
 import TabsBar from './components/tabsBar';
 
+import Snackbar from 'material-ui/Snackbar';
+
+
 class App extends Component {
   state = {
     isLoggedIn: sessionStorage.getItem('token') ? true : false,
+    snackbar: {
+      open: false,
+      message: ''
+    }
+  }
+
+  openSnackbarWithMessage = (message) => {
+    this.setState({
+      snackbar: {
+        open: true,
+        message
+      }
+    })
+  }
+
+  handleSnackbarClosing = () => {
+    this.setState({
+      snackbar: {
+        open: false,
+        message: ''
+      }
+    })
   }
 
   setLoginStatus = (status) => {
@@ -57,18 +82,30 @@ class App extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <BrowserRouter>
           <div>
-            <TopBar setLoginStatus={this.setLoginStatus} isLoggedIn={this.state.isLoggedIn} />
+            <TopBar setLoginStatus={this.setLoginStatus} isLoggedIn={this.state.isLoggedIn} openSnackbar={this.openSnackbarWithMessage}/>
             <TabsBar isLoggedIn={this.state.isLoggedIn} />
             <SearchBar />
             <Switch>
               <Route exact path="/" render={() => <Redirect to="/popular" />} />
-              <Route path="/popular" component={FetchPopular} />
+              <Route
+                path="/popular"
+                render={(props) => <FetchPopular {...props} openSnackbar={this.openSnackbarWithMessage} />} 
+              />
               {this.state.isLoggedIn &&
                 // <Route path="/favorites" render={() => this.state.isLoggedIn ? FetchFavorite : <Redirect to={"/"} />} />
-                <Route path="/favorites" component={FetchFavorite} />
+                <Route
+                  path="/favorites"
+                  render={(props) => <FetchFavorite {...props} openSnackbar={this.openSnackbarWithMessage} />}
+                />
               }
               <Route path="*" component={NotFound} />
             </Switch>
+            
+            <Snackbar
+              open={this.state.snackbar.open}
+              message={this.state.snackbar.message}
+              onRequestClose={this.handleSnackbarClosing}
+            />
           </div>
         </BrowserRouter>          
       </MuiThemeProvider>

@@ -6,10 +6,13 @@ import apiConfig from '../../config-api';
 import MovieDisplay from './movieDisplay';
 
 class FetchPopular extends Component {
-  state = { 
-    popularList: [],
-    fetching: true
-   }
+  constructor(props) {
+    super(props)
+    this.state = {
+      popularList: [],
+      fetching: true
+    } 
+  }
 
   componentDidMount() {
     fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiConfig.apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`)
@@ -22,7 +25,7 @@ class FetchPopular extends Component {
       <div>
         {this.state.fetching
           ? <CircularProgress size={80} thickness={5} style={{display: 'block', margin: '2em auto'}} /> 
-          : <MovieDisplay movies={this.state.popularList} />
+          : <MovieDisplay openSnackbar={this.props.openSnackbar} movies={this.state.popularList} />
         }
       </div>
     );

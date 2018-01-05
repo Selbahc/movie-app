@@ -3,22 +3,10 @@ import { GridList, GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
-import Favorite from 'material-ui/svg-icons/action/favorite';
-import Visibility from 'material-ui/svg-icons/action/visibility';
-import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 
-import headers from '../utils/tokenHeaders';
+import MovieTileMenu from './movieTileMenu';
 
-const addToFavorite = (movieId) => {
-  fetch(`api/favorites/add/${movieId}`, {
-    method: 'POST',
-    headers
-  });
-  // TODO: ADD SNACKBAR MESSAGE TO CONFIRM
-}
-
-const MovieDisplay = ({ movies }) => (
+const MovieDisplay = ({ movies, openSnackbar }) => (
   <div>
     <GridList
       cellHeight="auto"
@@ -30,7 +18,7 @@ const MovieDisplay = ({ movies }) => (
           key={tile.id}
           title={tile.title}
           subtitle={<span>Vote <b>{tile.vote_average}</b></span>}
-          actionIcon={<IconButton onClick={(e, movieId) => addToFavorite(tile.id)}><FavoriteBorder color="white" /><VisibilityOff color="white" /></IconButton>}
+          actionIcon={<MovieTileMenu movieId={tile.id} openSnackbar={openSnackbar}/>}
           titleBackground="rgba(0, 0, 0, 0.8)"
         >
           <img src={`https://image.tmdb.org/t/p/w300/${tile.poster_path}`} />

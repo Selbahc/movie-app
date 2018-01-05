@@ -6,14 +6,12 @@ import VideoLibrary from 'material-ui/svg-icons/av/video-library';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
-import Snackbar from 'material-ui/Snackbar';
 import { getStyles } from 'material-ui/AppBar/AppBar';
 
 import PropTypes from 'prop-types';
 
 import LoginForm from './loginForm';
 import SigninForm from './signinForm';
-import { log } from 'core-js/library/web/timers';
 
 class TopBar extends Component {
   static get contextTypes() {
@@ -23,19 +21,6 @@ class TopBar extends Component {
   state = {
     loginForm: false,
     signinForm: false,
-    snackbar: {
-      open: false,
-      message: ''
-    }
-  }
-
-  handleSnackbarClosing = () => {
-    this.setState({
-      snackbar: {
-        open: false,
-        message: ''
-      }
-    })
   }
 
   toggleForms = (form) => {
@@ -55,12 +40,7 @@ class TopBar extends Component {
     })
       .then(result => result.json())
       .then(response => {
-        this.setState({
-          snackbar: {
-            open: true,
-            message: response.message
-          }
-        });
+        this.props.openSnackbar(response.message);        
         this.props.setLoginStatus(response.success);
         response.token
           ? sessionStorage.setItem('token', response.token)
@@ -73,12 +53,7 @@ class TopBar extends Component {
 
   submitSigninForm = (formData) => {
     if (formData.password !== formData.confirmPassword) {
-      return this.setState({
-        snackbar: {
-          open: true,
-          message: 'No matching passwords !'
-        }
-      });
+      return this.props.openSnackbar('No matching passwords !');      
     }
 
     const form = new FormData();
@@ -94,12 +69,7 @@ class TopBar extends Component {
     })
       .then(result => result.json())
       .then(response => { 
-        this.setState({
-          snackbar: {
-            open: true,
-            message: response.message
-          }
-        });
+        this.props.openSnackbar(response.message);
         this.toggleForms('signinForm');
       })
   }
@@ -151,7 +121,6 @@ class TopBar extends Component {
         <AppBar
           title={<span>HapiMovie</span>}
           iconElementLeft={<IconButton><VideoLibrary /></IconButton>}
-          // iconElementRight={<FlatButton onClick={()=>this.toggleForms('loginForm')} label="Login" />}
         >
           {!this.props.isLoggedIn ? isLoggedOut : isLoggedIn}
         </AppBar>
@@ -175,12 +144,6 @@ class TopBar extends Component {
         >
           <SigninForm submitSigninForm={this.submitSigninForm} />
         </Dialog>
-
-        <Snackbar
-          open={this.state.snackbar.open}
-          message={this.state.snackbar.message}
-          onRequestClose={this.handleSnackbarClosing}
-        />
         
       </div>
     )
