@@ -10,7 +10,7 @@ const MovieDisplay = ({ movies, openSnackbar }) => (
   <div>
     <GridList
       cellHeight="auto"
-      cols={6}
+      cols={5}
     >
       <Subheader>Popular</Subheader>
       {movies.map((tile) => (

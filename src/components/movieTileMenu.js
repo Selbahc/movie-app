@@ -8,11 +8,12 @@ import Favorite from 'material-ui/svg-icons/action/favorite';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 
-import headers from '../utils/tokenHeaders';
+import addTokenToHeaders from '../utils/addTokenToHeaders';
 
 class MovieTileMenu extends Component {
 
   addToFavorite = (movieId) => {
+    const headers = addTokenToHeaders();
     fetch(`api/favorites/add/${movieId}`, {
       method: 'POST',
       headers

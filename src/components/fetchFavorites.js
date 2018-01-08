@@ -3,7 +3,8 @@ import MovieDisplay from './movieDisplay';
 import favorite from 'material-ui/svg-icons/action/favorite';
 import CircularProgress from 'material-ui/CircularProgress';
 import apiConfig from '../../config-api';
-import headers from '../utils/tokenHeaders';
+
+import addTokenToHeaders from '../utils/addTokenToHeaders';
 
 
 class FetchFavorites extends Component {
@@ -23,6 +24,7 @@ class FetchFavorites extends Component {
   }
 
   componentDidMount() {
+    const headers = addTokenToHeaders();
     fetch('/api/favorites', { headers })
     .then(res => res.json())
     .then(jsonResponse => {

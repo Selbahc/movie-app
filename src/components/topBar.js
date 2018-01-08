@@ -47,7 +47,9 @@ class TopBar extends Component {
           : sessionStorage.removeItem('token');
         this.toggleForms('loginForm');
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        this.props.openSnackbar('Sorry, we\'re unable to reach the server');
+      })
   }
   
 
