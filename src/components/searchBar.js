@@ -35,7 +35,7 @@ class SearchBar extends Component {
   }
 
   fetchMovieByTitle = () => {
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=${configApi.apiKey}&language=en-US&query=${this.state.query}&page=1&include_adult=false`)
+    fetch(`https://api.themoviedb.org/3/search/movie?api_key=${configApi.apiKey}&language=${localStorage.getItem('lang')}&query=${this.state.query}&page=1&include_adult=false`)
     .then(res => res.json())
     .then(data => this.setState({ matchingMovies: data, fetching: false }))
   }

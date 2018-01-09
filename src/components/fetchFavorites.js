@@ -12,7 +12,7 @@ class FetchFavorites extends Component {
 
   callApiFromUserFavorites = (userFavoritesList) => {
     userFavoritesList.map(userFavorite => {
-      fetch(`https://api.themoviedb.org/3/movie/${userFavorite.uid}?api_key=${apiConfig.apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`)
+      fetch(`https://api.themoviedb.org/3/movie/${userFavorite.uid}?api_key=${apiConfig.apiKey}&language=${localStorage.getItem('lang')}&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`)
       .then(response => response.json())
       .then(data => {
         this.setState({

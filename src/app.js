@@ -43,6 +43,7 @@ import FetchFavorite from './components/fetchFavorites';
 import NotFound from './components/notFound';
 import TabsBar from './components/tabsBar';
 
+import ToggleLanguage from './components/toggleLanguage';
 import Snackbar from 'material-ui/Snackbar';
 
 
@@ -82,6 +83,11 @@ class App extends Component {
     this.setState({ isSearching: state });
   }
 
+  componentDidMount() {
+    console.log(localStorage.getItem('lang') == true);
+    !localStorage.getItem('lang') ? localStorage.setItem('lang', 'en-US') : false;
+  }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -89,6 +95,7 @@ class App extends Component {
           <div>
             <TopBar setLoginStatus={this.setLoginStatus} isLoggedIn={this.state.isLoggedIn} openSnackbar={this.openSnackbarWithMessage}/>
             <TabsBar isLoggedIn={this.state.isLoggedIn} />
+            <ToggleLanguage />
             <SearchBar setIsSearchingState={this.setIsSearchingState} />
             <Switch>
               <Route exact path="/" render={() => <Redirect to="/popular" />} />

@@ -17,7 +17,7 @@ class FetchPopular extends Component {
   
   fetchPopular() {
     console.log(this.state.pageToFetch);
-    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiConfig.apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=true&page=${this.state.pageToFetch}`)
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiConfig.apiKey}&language=${localStorage.getItem('lang')}&sort_by=popularity.desc&include_adult=false&include_video=true&page=${this.state.pageToFetch}`)
     .then(response => response.json())
     .then(data => this.setState(prevState => {
       return { 
