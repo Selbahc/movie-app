@@ -16,6 +16,7 @@ class FetchPopular extends Component {
   }
   
   fetchPopular() {
+    console.log(this.state.pageToFetch);
     fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiConfig.apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=true&page=${this.state.pageToFetch}`)
     .then(response => response.json())
     .then(data => this.setState(prevState => {
@@ -36,7 +37,7 @@ class FetchPopular extends Component {
         hasMore={true}
         loader={<CircularProgress style={{display: "block", margin: "0 auto"}}/>}
       >
-        <MovieDisplay openSnackbar={this.props.openSnackbar} movies={this.state.popularList} />
+        <MovieDisplay title={'Popular movies'} openSnackbar={this.props.openSnackbar} movies={this.state.popularList} />
       </InfiniteScroll>
     );
   }

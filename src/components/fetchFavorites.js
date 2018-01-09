@@ -39,7 +39,7 @@ class FetchFavorites extends Component {
       <div>
         {this.state.fetching 
           ? <CircularProgress size={80} thickness={5} style={{ display: 'block', margin: '2em auto' }} />
-          : <MovieDisplay movies={this.state.favorites} />
+          : <MovieDisplay title={'Favorites movies'} movies={this.state.favorites} />
         }
       </div>
     );

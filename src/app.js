@@ -52,7 +52,8 @@ class App extends Component {
     snackbar: {
       open: false,
       message: ''
-    }
+    },
+    isSearching: false
   }
 
   openSnackbarWithMessage = (message) => {
@@ -77,6 +78,10 @@ class App extends Component {
     this.setState({ isLoggedIn: status });
   }
 
+  setIsSearchingState = (state) => {
+    this.setState({ isSearching: state });
+  }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -84,7 +89,7 @@ class App extends Component {
           <div>
             <TopBar setLoginStatus={this.setLoginStatus} isLoggedIn={this.state.isLoggedIn} openSnackbar={this.openSnackbarWithMessage}/>
             <TabsBar isLoggedIn={this.state.isLoggedIn} />
-            <SearchBar />
+            <SearchBar setIsSearchingState={this.setIsSearchingState} />
             <Switch>
               <Route exact path="/" render={() => <Redirect to="/popular" />} />
               <Route

@@ -6,13 +6,13 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 
 import MovieTileMenu from './movieTileMenu';
 
-const MovieDisplay = ({ movies, openSnackbar }) => (
+const MovieDisplay = ({ movies, title, openSnackbar }) => (
   <div>
     <GridList
       cellHeight="auto"
       cols={5}
     >
-      <Subheader>Popular</Subheader>
+      <Subheader>{title}</Subheader>
       {movies.map((tile) => (
         <GridTile
           key={tile.id}
