@@ -54,7 +54,8 @@ class App extends Component {
       open: false,
       message: ''
     },
-    isSearching: false
+    isSearching: false,
+    languageDidUpdate: false
   }
 
   openSnackbarWithMessage = (message) => {
@@ -84,8 +85,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(localStorage.getItem('lang') == true);
-    !localStorage.getItem('lang') ? localStorage.setItem('lang', 'en-US') : false;
+    if (localStorage.getItem('lang') == null) localStorage.setItem('lang', 'en-US');
+  }
+
+  updateLanguage = () => {
+    this.setState({ languageDidUpdate: true}, () => {
+      setTimeout(() => this.setState({ languageDidUpdate: false }), 1000)
+    });
   }
 
   render() {
@@ -95,19 +101,19 @@ class App extends Component {
           <div>
             <TopBar setLoginStatus={this.setLoginStatus} isLoggedIn={this.state.isLoggedIn} openSnackbar={this.openSnackbarWithMessage}/>
             <TabsBar isLoggedIn={this.state.isLoggedIn} />
-            <ToggleLanguage />
+            <ToggleLanguage updateLanguage={this.updateLanguage} />
             <SearchBar setIsSearchingState={this.setIsSearchingState} />
             <Switch>
               <Route exact path="/" render={() => <Redirect to="/popular" />} />
               <Route
                 path="/popular"
-                render={(props) => <FetchPopular {...props} openSnackbar={this.openSnackbarWithMessage} />} 
+                render={(props) => <FetchPopular {...props} languageDidUpdate={this.state.languageDidUpdate} openSnackbar={this.openSnackbarWithMessage} />} 
               />
               {this.state.isLoggedIn &&
                 // <Route path="/favorites" render={() => this.state.isLoggedIn ? FetchFavorite : <Redirect to={"/"} />} />
                 <Route
                   path="/favorites"
-                  render={(props) => <FetchFavorite {...props} openSnackbar={this.openSnackbarWithMessage} />}
+                render={(props) => <FetchFavorite {...props} languageDidUpdate={this.state.languageDidUpdate} openSnackbar={this.openSnackbarWithMessage} />}
                 />
               }
               <Route path="*" component={NotFound} />

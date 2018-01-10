@@ -29,9 +29,16 @@ class FetchFavorites extends Component {
     .then(res => res.json())
     .then(jsonResponse => {
       if (jsonResponse.success) {
-       this.callApiFromUserFavorites(jsonResponse.favorites);
+        this.setState({ userFavoritesList: jsonResponse.favorites }, () => this.callApiFromUserFavorites(this.state.userFavoritesList))
       }
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.languageDidUpdate !== this.props.languageDidUpdate
+      && nextProps.languageDidUpdate === true) {
+      this.setState({ pageToFetch: 1, favorites: [] }, () => this.callApiFromUserFavorites(this.state.userFavoritesList))
+    }
   }
 
   render() {

@@ -30,6 +30,13 @@ class FetchPopular extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.languageDidUpdate !== this.props.languageDidUpdate
+      && nextProps.languageDidUpdate === true) {
+        this.setState({ pageToFetch: 1, popularList: [] }, () => this.fetchPopular)
+      }
+  }
+
   render() {
     return (
       <InfiniteScroll
